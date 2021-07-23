@@ -1,0 +1,30 @@
+{
+  "scope": "jiayu",
+  "name": "domainmanager",
+  "version": "0.1.8",
+  "main": "main.dara",
+  "libraries": {
+    "Console": "darabonba:Console:*",
+    "Util": "darabonba:Util:*",
+    "DNS": "alibabacloud:Alidns20150109:*",
+    "RPC": "alibabacloud:RPC:*"
+  },
+  "java": {
+    "package": "doyi.com.domainmanager"
+  },
+  "csharp": {
+    "namespace": "doyi.com.domainmanager"
+  },
+  "php": {
+    "package": "doyi.com.domainmanager"
+  },
+  "python": {
+    "package": "doyi_com_domainmanager"
+  },
+  "golang": {
+    "package": "domainmanager"
+  },
+  "typescript": {
+    "package": "domainmanager"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "darabonba:Console:*": "libraries\\darabonba_Console_0.1.1",
+  "darabonba:Util:*": "libraries\\darabonba_Util_0.1.7",
+  "alibabacloud:Alidns20150109:*": "libraries\\alibabacloud_Alidns20150109_1.0.0",
+  "alibabacloud:RPC:*": "libraries\\alibabacloud_RPC_0.1.8",
+  "alibabacloud:EndpointUtil:*": "libraries\\alibabacloud_EndpointUtil_0.1.2",
+  "alibabacloud:RPCUtil:*": "libraries\\alibabacloud_RPCUtil_0.1.3",
+  "alibabacloud:Credential:*": "libraries\\alibabacloud_Credential_0.4.8"
+}

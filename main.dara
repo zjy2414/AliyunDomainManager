@@ -1,0 +1,382 @@
+/**
+* Author: 东南dnf
+* Powered by Aliyun Darabonba Language :)
+*/
+import Console;
+import Util;
+import RPC;
+import DNS;
+
+/**
+* Init 初始化客户端
+ * @param accessKeyId
+ * @param accessKeySecret
+ * @return Client
+ * @throws Exception
+*/
+static function Init(accessKeyId: string, accessKeySecret: string) throws: DNS{
+    var config = new RPC.Config{};
+
+    // 传AccessKey ID入config
+    config.accessKeyId = accessKeyId;
+
+    // 传AccessKey Secret入config
+    config.accessKeySecret = accessKeySecret;
+
+    return new DNS(config);
+}
+
+
+/**
+* DescribeDomains  查询账户下域名
+ * @param client      客户端
+ * @throws Exception
+*/
+static async function DescribeDomains(client: DNS) throws: void{
+    var req = new DNS.DescribeDomainsRequest{};
+    
+    Console.log("查询域名列表(json)↓");
+    try {
+        var resp = client.describeDomains(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* AddDomain  阿里云云解析添加域名
+ * @param client      客户端
+ * @param domainName  域名名称
+ * @throws Exception
+*/
+static async function AddDomain(client: DNS,domainName: string) throws: void{
+    var req = new DNS.AddDomainRequest{};
+
+    req.domainName = domainName;
+    
+    Console.log(`云解析添加域名(${domainName})的结果(json)↓`);
+    try {
+        var resp = client.addDomain(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* DescribeDomainRecords 查询域名解析记录
+ * @param client          客户端 
+ * @param domainName      域名名称
+ * @throws Exception
+*/
+static async function DescribeDomainRecords(client: DNS,domainName: string) throws: void{
+    var req = new DNS.DescribeDomainRecordsRequest{};
+
+    req.domainName = domainName;
+    
+    Console.log(`查询域名(${domainName})的解析记录(json)↓`);
+    try {
+        var resp = client.describeDomainRecords(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* DescribeRecordLogs  查询域名解析记录日志
+ * @param client         客户端
+ * @param domainName     域名名称
+ * @throws Exception
+*/
+static async function DescribeRecordLogs(client: DNS,domainName: string) throws: void{
+    var req = new DNS.DescribeRecordLogsRequest{};
+
+    req.domainName = domainName;
+    
+    Console.log(`查询域名(${domainName})的解析记录日志(json)↓`);
+    try {
+        var resp = client.describeRecordLogs (req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* DescribeDomainRecordByRecordId 查询域名解析记录信息
+ * @param client         客户端
+ * @param RecordId       解析记录id
+ * @throws Exception
+*/
+static async function DescribeDomainRecordByRecordId(client: DNS,RecordId: string) throws: void{
+    var req = new DNS.DescribeDomainRecordInfoRequest{};
+
+    req.recordId = RecordId;
+    
+    Console.log(`查询RecordId:${RecordId}的域名解析记录信息(json)↓`);
+    try {
+        var resp = client.describeDomainRecordInfo(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* DescribeDomainInfo  查询域名信息
+ * @param client         客户端
+ * @param domainName     域名名称
+ * @throws Exception
+*/
+static async function DescribeDomainInfo(client: DNS,domainName: string) throws: void{
+    var req = new DNS.DescribeDomainInfoRequest{};
+
+    req.domainName = domainName;
+    
+    Console.log(`查询域名:${domainName}的信息(json)↓`);
+    try {
+        var resp = client.describeDomainInfo(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* AddDomainRecord  添加域名解析记录
+ * @param client            客户端
+ * @param domainName        域名名称
+ * @param RR                主机记录
+ * @param type              记录类型(A/NS/MX/TXT/CNAME/SRV/AAAA/CAA/REDIRECT_URL/FORWARD_URL)
+ * @param value             记录值
+ * @throws Exception
+*/
+static async function AddDomainRecord(client: DNS,domainName: string,RR: string,Type: string,Value: string) throws: void{
+    var req = new DNS.AddDomainRecordRequest{};
+
+    req.domainName = domainName;
+    req.RR = RR;
+    req.type = Type;
+    req.value = Value;
+
+    try {
+        var resp = client.addDomainRecord(req);
+        Console.log(`添加域名解析记录的结果(json)↓`);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* UpdateDomainRecord  更新域名解析记录
+ * @param client          客户端
+ * @param recordId        解析记录ID
+ * @param RR              主机记录
+ * @param type            记录类型(A/NS/MX/TXT/CNAME/SRV/AAAA/CAA/REDIRECT_URL/FORWARD_URL)
+ * @param value           记录值
+ * @throws Exception
+*/
+static async function UpdateDomainRecord(client: DNS,recordId: string,RR: string,Type: string,Value: string) throws: void{
+    var req = new DNS.UpdateDomainRecordRequest{};
+
+    req.recordId = recordId;
+    req.RR = RR;
+    req.type = Type;
+    req.value = Value;
+
+    Console.log(`更新域名解析记录的结果(json)↓`);
+    try {
+        var resp = client.updateDomainRecord(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* SetDomainRecordStatus  设置域名解析状态
+ * @param client      客户端
+ * @param recordId    解析记录ID
+ * @param status      解析状态(ENABLE/DISABLE)
+ * @throws Exception
+*/
+static async function SetDomainRecordStatus(client: DNS,recordId: string,status: string) throws: void{
+    var req = new DNS.SetDomainRecordStatusRequest{};
+
+    req.recordId = recordId;
+    req.status = status;
+    
+    Console.log(`设置域名解析状态的结果(json)↓`);
+    try {
+        var resp = client.setDomainRecordStatus(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* DeleteDomainRecord  删除域名解析记录
+ * @param client         客户端
+ * @param recordId       解析记录ID
+ * @throws Exception
+*/
+static async function DeleteDomainRecord(client: DNS,recordId: string) throws: void{
+    var req = new DNS.DeleteDomainRecordRequest{};
+
+    req.recordId = recordId;
+
+    Console.log(`删除域名解析记录的结果(json)↓`);
+    try {
+        var resp = client.deleteDomainRecord(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+    
+}
+
+
+/**
+* DescribeDomainGroups  查询域名组
+ * @param client 客户端
+ * @throws Exception
+*/
+static async function DescribeDomainGroups(client: DNS) throws: void{
+    var req = new DNS.DescribeDomainGroupsRequest{};
+    
+    Console.log(`查询域名组(json)↓`);
+    try {
+        var resp = client.describeDomainGroups(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* AddDomainGroup  添加域名组
+ * @param client      客户端
+ * @param groupName   域名组名
+ * @throws Exception
+*/
+static async function AddDomainGroup(client: DNS,groupName: string) throws: void{
+    var req = new DNS.AddDomainGroupRequest{};
+
+    req.groupName = groupName;
+    
+    Console.log(`添加域名组的结果(json)↓`);
+    try {
+        var resp = client.addDomainGroup(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* UpdateDomainGroup  更新域名组名称
+ * @param client         客户端
+ * @param groupId        解析组ID
+ * @param groupName      新域名组名称
+ * @throws Exception
+*/
+static async function UpdateDomainGroup(client: DNS,groupId: string,groupName: string) throws: void{
+    var req = new DNS.UpdateDomainGroupRequest{};
+
+    req.groupId = groupId;
+    req.groupName = groupName;
+
+    Console.log(`更新域名组的结果(json)↓`);
+    try {
+        var resp = client.updateDomainGroup(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+/**
+* DeleteDomainGroup  删除域名组
+ * @param client      客户端
+ * @param groupId     域名组ID
+ * @throws Exception
+*/
+static async function DeleteDomainGroup(client: DNS,groupId: string) throws: void{
+    var req = new DNS.DeleteDomainGroupRequest{};
+
+    req.groupId = groupId;
+
+    Console.log(`删除域名组的结果(json)↓`);
+    try {
+        var resp = client.deleteDomainGroup(req);
+        Console.log(Util.toJSONString(resp));
+    } catch (error) {
+        Console.log(error.message);
+    }
+}
+
+
+
+
+static async function main() throws: void {
+    // 0.初始化客户端
+    var client = Init("<accessKeyId>", "<accessKeySecret>");
+
+    // 1.查询账户下域名
+    DescribeDomains(client);
+
+    // 2.阿里云云解析添加域名
+    AddDomain(client, "<domainName>");
+
+    // 3.查询域名解析记录
+    DescribeDomainRecords(client, "<domainName>");
+
+    // 4.查询域名记录日志
+    DescribeRecordLogs(client, "<domainName>");
+    
+    // 5.通过RecordId查询域名解析记录
+    DescribeDomainRecordByRecordId(client,"<RecordId>");
+
+    // 6.查询域名信息
+    DescribeDomainInfo(client, "<domainName>");
+
+    // 7.添加域名解析记录
+    AddDomainRecord(client, "<domainName>", "<RR>", "<type>", "<value>");
+
+    // 8.更新域名解析记录
+    UpdateDomainRecord(client, "<RecordId>", "<RR>", "<type>", "<value>");
+
+    // 9.设置域名解析状态
+    SetDomainRecordStatus(client, "<RecordId>", "ENABLE");
+
+    // 10.删除域名解析记录
+    DeleteDomainRecord(client, "<RecordId>");
+
+    // 11.查询域名组
+    DescribeDomainGroups(client);
+
+    // 12.添加域名组
+    AddDomainGroup(client, "<GroupName>");
+
+    // 13.更新域名组名称
+    UpdateDomainGroup(client, "<GroupId>", "<GroupName>");
+
+    // 14.删除域名组
+    DeleteDomainGroup(client, "<GroupId>");
+}
