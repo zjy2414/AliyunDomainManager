@@ -577,7 +577,7 @@ func DeleteDomainGroup(client *dns.Client, groupId *string) (_err error) {
 
 func Main() (_err error) {
 	// 0.初始化客户端
-	client, _err := Init(tea.String("LTAIxgq0zffrA9KL"), tea.String("0WkzUGvSZmu8qbJ6HaTWEzgc9WEoVN"))
+	client, _err := Init(tea.String("accessKeySecret"), tea.String("accessKeySecret"))
 	if _err != nil {
 		return _err
 	}
