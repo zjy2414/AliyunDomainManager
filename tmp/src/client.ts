@@ -31,7 +31,7 @@ export default class Client {
   }
 
   static async main(): Promise<void> {
-    let client = Client.Initialization("LTAIxgq0zffrA9KL", "0WkzUGvSZmu8qbJ6HaTWEzgc9WEoVN");
+    let client = Client.Initialization("accessKeySecret", "accessKeySecret");
     // 查询可管理的域名
     await Client.DescribeDomains(client);
   }
